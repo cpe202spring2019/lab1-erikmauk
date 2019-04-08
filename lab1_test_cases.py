@@ -74,12 +74,59 @@ class TestLab1(unittest.TestCase):
         # checks empty list
         self.assertEqual(reverse_rec([]), [])
 
-    def test_bin_search(self):
-        #list_val =[0,1,2,3,4,7,8,9,10]
-        #low = 0
-        #high = len(list_val)-1
-        #self.assertEqual(bin_search(4, 0, len(list_val)-1, list_val), 4)
-        pass
+    def test_bin_search_valid(self):
+        list_val =[0,1,2,3,4,7,8,9,10]
+        low = 0
+        high = len(list_val)-1
+        self.assertEqual(bin_search(0, low, high, list_val), 0)
+        self.assertEqual(bin_search(1, low, high, list_val), 1)
+        self.assertEqual(bin_search(2, low, high, list_val), 2)
+        self.assertEqual(bin_search(3, low, high, list_val), 3)
+        self.assertEqual(bin_search(4, low, high, list_val), 4)
+        self.assertEqual(bin_search(7, low, high, list_val), 5)
+        self.assertEqual(bin_search(8, low, high, list_val), 6)
+        self.assertEqual(bin_search(9, low, high, list_val), 7)
+        self.assertEqual(bin_search(10, low, high, list_val), 8)
+
+
+        #checks one value list
+        list_val = [-5]
+        low = 0
+        high = len(list_val)-1
+        self.assertEqual(bin_search(-5, low, high, list_val), 0)
+
+    def test_bin_search_none(self):
+        list_val = []
+        low = 0
+        high = len(list_val)-1
+        self.assertEqual(bin_search(5, low, high, list_val), None)
+
+    def test_bin_search_sames(self):
+        list_val = [8, 8, 8]
+        low = 0
+        high = len(list_val)-1
+        self.assertEqual(bin_search(8, low, high, list_val), 1)
+
+    def test_bin_search_floats(self):
+        list_val = [1.2, 2.3, 3.4, 4.5, 5.6, 6.7]
+        low = 0
+        high = len(list_val)-1
+        self.assertEqual(bin_search(6.7, low, high, list_val), 5)
+
+    def test_bin_search_error(self):
+        list_val = None
+        low = 0
+        high = 10
+        with self.assertRaises(ValueError):
+            bin_search(1, low, high, list_val)
+
+    def test_bin_search_not_present(self):
+        list_val =[0,1,2,3,4,7,8,9,10]
+        low = 0
+        high = len(list_val)-1
+        self.assertEqual(bin_search(5, low, high, list_val), None)
+
+
 
 if __name__ == "__main__":
         unittest.main()
